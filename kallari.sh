@@ -1,6 +1,6 @@
 #!/bin/bash
 ## variables for mysql database
-export WP_DB_HOST="mysql-wordpress"
+export WP_DB_HOST="db"
 export WP_DB_NAME="mysql"
 export WP_DB_PASSWORD=wordpress
 export WP_DB_USER=wordpress

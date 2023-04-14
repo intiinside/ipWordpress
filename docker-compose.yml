@@ -1,16 +1,16 @@
 version: '3'
 services:
-  mysql-wordpress:
-    image: mysql
+  db:
+    image: mysql:latest
     restart: unless-stopped
-    container_name: mysql-wordpress
+    container_name: db
     environment:
       - MYSQL_DATABASE=${WP_DB_NAME}
       - MYSQL_USER=${WP_DB_USER}
       - MYSQL_PASSWORD=${WP_DB_PASSWORD}
       - MYSQL_ROOT_PASSWORD=${WP_DB_PASSWORD}
     volumes:
-      - /data/mysql-wordpress:/var/lib/mysql
+      - /db_data:/var/lib/mysql
   wordpress:
     image: wordpress
     restart: unless-stopped
@@ -18,11 +18,11 @@ services:
     ports:
       - 80:80
     environment:
-      - WORDPRESS_DB_HOST=${WP_DB_HOST}
+      - WORDPRESS_DB_HOST=${WP_DB_HOST}:3306
       - WORDPRESS_DB_USER=${WP_DB_USER}
       - WORDPRESS_DB_PASSWORD=${WP_DB_PASSWORD}
       - WORDPRESS_DB_NAME=${WP_DB_NAME}
     volumes:
-      - /data/wordpress:/var/www/html
+      - /wordpress:/var/www/html
     depends_on:
-      - mysql-wordpress
+      - db
